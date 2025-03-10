@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter, Youtube } from 'lucide-react'
+import { Facebook, Instagram, Mail, Phone, Twitter, Youtube } from 'lucide-react'
 import type React from 'react'
 import { memo } from 'react'
 
@@ -54,7 +54,7 @@ export default function Footer() {
 							Contact Information
 						</h3>
 						<ul className="space-y-3">
-							<ContactItem Icon={Phone}>(123) 456-7890</ContactItem>
+							<ContactItem Icon={Phone}>(442) 998-9633</ContactItem>
 							<ContactItem Icon={Mail}>
 								<a
 									href="mailto:info@zinasbakery.com"
@@ -63,12 +63,10 @@ export default function Footer() {
 									info@zinasbakery.com
 								</a>
 							</ContactItem>
-							<ContactItem Icon={MapPin}>
-								123 Bakery Street, Sweet City, SC 12345
-							</ContactItem>
+
 							<li className="text-amber-700">
 								<span className="font-medium">Hours:</span> Mon-Fri:
-								7am-7pm, Sat-Sun: 8am-5pm
+								7am-9pm, Sat-Sun: 8am-8pm
 							</li>
 						</ul>
 					</div>
