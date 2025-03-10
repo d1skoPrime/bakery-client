@@ -125,29 +125,49 @@ export default function PlaceOrder() {
 		[]
 	)
 
-	const handleSubmit = useCallback(async (e: React.FormEvent) => {
-		e.preventDefault()
-		setLoading(true)
+	const handleSubmit = useCallback(
+		async (e: React.FormEvent) => {
+			e.preventDefault()
+			setLoading(true)
 
-		try {
-			// For demo purposes, simulate a successful submission
-			await new Promise((resolve) => setTimeout(resolve, 1000))
-			setIsSuccessfull(true)
-			setFormData({
-				firstName: '',
-				lastName: '',
-				email: '',
-				productname: '',
-				phonenumber: '',
-				message: '',
-			})
-		} catch (error) {
-			console.error('Error submitting:', error)
-			alert('Error submitting order')
-		} finally {
-			setLoading(false)
-		}
-	}, [])
+			try {
+				const response = await fetch('https://zinasbakery-api/send-email', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(formData),
+				})
+
+				// Проверяем, успешен ли ответ
+				if (!response.ok) {
+					throw new Error(`Server error: ${response.status}`)
+				}
+
+				// Даем серверу время обработать запрос (если нужно)
+				await new Promise((resolve) => setTimeout(resolve, 1000))
+
+				// Парсим JSON-ответ
+				const data = await response.json()
+				console.log(data.message)
+
+				// Только после успешного ответа очищаем форму и ставим успешный статус
+				setIsSuccessfull(true)
+				setFormData({
+					firstName: '',
+					lastName: '',
+					email: '',
+					productname: '',
+					phonenumber: '',
+					message: '',
+				})
+			} catch (error) {
+				console.error('Error submitting:', error)
+				alert('Error submitting order')
+			} finally {
+				setLoading(false)
+			}
+		},
+		[formData]
+	)
 
 	const handleFocus = useCallback((inputName: string) => {
 		setFocusedInput(inputName)
